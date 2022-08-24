@@ -1,8 +1,9 @@
 import time
-import urequests
 import libs.physical_modules as mods
-import libs.wifi as wifi
 import libs.env as env
+import libs.wifi as wifi
+import libs.thingspeak as ts
+from libs.utils import intOrNone
 
 
 def main():
@@ -11,31 +12,30 @@ def main():
     station = wifi.connect(secrets["wifi"]["ssid"], secrets["wifi"]["password"])
 
     if station.isconnected():
-        print("Connected!")
+        loop(physical_modules, secrets["thingspeak"]["write_api_key"])
     else:
         print("Disconnected!")
-    # response = urequests.get("https://xandao.dev/")
-    # print(response.text)
-    loop(physical_modules)
 
 
-def loop(physical_modules):
+def loop(physical_modules, ts_write_api_key):
     dht_sensor = physical_modules["dthSensor"]
     light_relay = physical_modules["lightRelay"]
     isLightOn = False
     while True:
         dht_sensor.measure()  # min 2 seconds between measurements
-        print(f"Temperature: {dht_sensor.temperature()}°C, Humidity: {dht_sensor.humidity()}%")
+        temperature = intOrNone(dht_sensor.temperature())
+        humidity = intOrNone(dht_sensor.humidity())
+        print(f"Temperature: {temperature}°C, Humidity: {humidity}%")
+        ts.post(ts_write_api_key, field1=temperature, field2=humidity)
+        time.sleep(30)
 
-        isProbablyDay = dht_sensor.temperature() > 23 and dht_sensor.humidity() > 40
+        isProbablyDay = temperature > 23 and humidity > 40
         if isProbablyDay and not isLightOn:
             isLightOn = True
             light_relay.on()
         elif not isProbablyDay and isLightOn:
             isLightOn = False
             light_relay.off()
-
-        time.sleep(2)
 
 
 if __name__ == "__main__":
