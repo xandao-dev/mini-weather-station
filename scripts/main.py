@@ -9,8 +9,8 @@ def main():
     physical_modules = mods.setup()
     secrets = env.load("env.json")
     station = wifi.connect(secrets["wifi"]["ssid"], secrets["wifi"]["password"])
-    
-    if station.is_connected():
+
+    if station.isconnected():
         print("Connected!")
     else:
         print("Disconnected!")
