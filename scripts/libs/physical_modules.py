@@ -1,6 +1,6 @@
 import machine
 import dht
-from constants import DHT_SENSOR_PIN, LIGHT_RELAY_PIN
+from libs.constants import DHT_SENSOR_PIN, LIGHT_RELAY_PIN
 
 
 def setup():
