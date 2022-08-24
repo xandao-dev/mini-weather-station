@@ -9,7 +9,8 @@ def post(write_api_key, **fields):
 	"""
 	url = f"https://api.thingspeak.com/update?api_key={write_api_key}"
 	for key, value in fields.items():
-		url += f"&{key}={value}"
+		if value is not None:
+			url += f"&{key}={value}"
 	response = urequests.get(url)
 	if response.status_code != 200:
 		print("Error posting to ThingSpeak")
