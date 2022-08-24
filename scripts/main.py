@@ -1,32 +1,27 @@
 import time
-from operator import itemgetter
-import network
-import machine
-import dht
+import urequests
+import libs.physical_modules as mods
+import libs.wifi as wifi
+import libs.env as env
 
 
 def main():
-    physics_modules = initialize_modules()
-    connect_to_wifi()
-    loop(physics_modules)
+    physical_modules = mods.setup()
+    secrets = env.load("env.json")
+    station = wifi.connect(secrets["wifi"]["ssid"], secrets["wifi"]["password"])
+    
+    if station.is_connected():
+        print("Connected!")
+    else:
+        print("Disconnected!")
+    # response = urequests.get("https://xandao.dev/")
+    # print(response.text)
+    loop(physical_modules)
 
 
-def initialize_modules():
-    dth_sensor = dht.DHT11(machine.Pin(4))  # Pin 4 is D2 on Wemos D1 Mini
-    light_relay = machine.Pin(2, machine.Pin.OUT)  # Pin 2 is D4 on Wemos D1 Mini
-
-    physical_modules = {"dthSensor": dth_sensor, "lightRelay": light_relay}
-    return physical_modules
-
-
-def connect_to_wifi():
-    sta_if = network.WLAN(network.STA_IF)
-    sta_if.active(True)
-    sta_if.connect('', '')
-
-
-def loop(physics_modules):
-    dht_sensor, light_relay = itemgetter("dht_sensor", "light_relay")(physics_modules)
+def loop(physical_modules):
+    dht_sensor = physical_modules["dthSensor"]
+    light_relay = physical_modules["lightRelay"]
     isLightOn = False
     while True:
         dht_sensor.measure()  # min 2 seconds between measurements
