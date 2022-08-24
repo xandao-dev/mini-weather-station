@@ -5,6 +5,7 @@
 .micropythonrc
 .vscode/*
 !/.vscode/settings.json
+env.json
 
 ### Git ###
 # Created by git for backups. To disable backups in Git:
