@@ -1,4 +1,4 @@
-import urequests
+from urequests import get as req_get
 
 def post(write_api_key, **fields):
 	"""Post data to ThingSpeak
@@ -11,7 +11,7 @@ def post(write_api_key, **fields):
 	for key, value in fields.items():
 		if value is not None:
 			url += f"&{key}={value}"
-	response = urequests.get(url)
+	response = req_get(url)
 	if response.status_code != 200:
 		print("Error posting to ThingSpeak")
 	response.close()

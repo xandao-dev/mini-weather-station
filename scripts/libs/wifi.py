@@ -1,11 +1,11 @@
-import network
-import time
+from network import WLAN, STA_IF
+from time import sleep
 
 
 def connect(ssid, password):
     attempts = 0
     max_attempts = 30
-    station = network.WLAN(network.STA_IF)
+    station = WLAN(STA_IF)
     if not station.isconnected():
         print(f"Selected network, SSID: {ssid}")
         station.active(True)
@@ -15,7 +15,7 @@ def connect(ssid, password):
         while not station.isconnected() and attempts < max_attempts:
             print(".", end="")
             attempts += 1
-            time.sleep(1)
+            sleep(1)
         print("")
     if station.isconnected():
         print("Network connected, config: ", station.ifconfig())
