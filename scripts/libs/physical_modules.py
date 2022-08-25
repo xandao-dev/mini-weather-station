@@ -1,12 +1,9 @@
 import machine
 import dht
-from libs.constants import DHT_SENSOR_PIN, LIGHT_RELAY_PIN
+from libs.constants import DHT_SENSOR_PIN
 
 
 def setup():
     dth_sensor = dht.DHT11(machine.Pin(DHT_SENSOR_PIN))
-    light_relay = machine.Pin(LIGHT_RELAY_PIN, machine.Pin.OUT)
-    light_relay.off()
-
-    physical_modules = {"dthSensor": dth_sensor, "lightRelay": light_relay}
+    physical_modules = {"dthSensor": dth_sensor}
     return physical_modules

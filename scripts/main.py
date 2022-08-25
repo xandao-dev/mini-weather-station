@@ -19,8 +19,6 @@ def main():
 
 def loop(physical_modules, ts_write_api_key):
     dht_sensor = physical_modules["dthSensor"]
-    light_relay = physical_modules["lightRelay"]
-    isLightOn = False
     while True:
         dht_sensor.measure()  # min 2 seconds between measurements
         temperature = intOrNone(dht_sensor.temperature())
@@ -29,13 +27,6 @@ def loop(physical_modules, ts_write_api_key):
         ts.post(ts_write_api_key, field1=temperature, field2=humidity)
         time.sleep(30)
 
-        isProbablyDay = temperature > 23 and humidity > 40
-        if isProbablyDay and not isLightOn:
-            isLightOn = True
-            light_relay.on()
-        elif not isProbablyDay and isLightOn:
-            isLightOn = False
-            light_relay.off()
 
 
 if __name__ == "__main__":
