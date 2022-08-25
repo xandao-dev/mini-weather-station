@@ -1,5 +1,8 @@
 from network import WLAN, STA_IF
 from time import sleep
+from machine import Timer, reset
+from libs.constants import WIFI_WATCHER_INTERVAL
+from libs.physical_modules import blink
 
 
 def connect(ssid, password):
@@ -23,3 +26,19 @@ def connect(ssid, password):
     print("Could not connect to network")
     station.active(False)
     return None
+
+
+def watchdog(station, led):
+    def check_connection():
+        if not station.isconnected():
+            print("WWD: Wifi Disconnected, cleaning and restarting!")
+            blink(led, 10)
+            clean_then_restart()
+
+    def clean_then_restart():
+        watcher.deinit()
+        station.active(False)
+        reset()
+
+    watcher = Timer(-1)
+    watcher.init(period=WIFI_WATCHER_INTERVAL, mode=Timer.PERIODIC, callback=check_connection)

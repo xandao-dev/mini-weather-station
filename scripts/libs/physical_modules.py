@@ -1,7 +1,6 @@
 from dht import DHT11
 from time import sleep
 from machine import Pin, ADC, Signal
-from libs.utils import intOrNone
 from libs.constants import DHT_SENSOR_PIN, INTERNAL_LED_PIN, LDR_ADC
 
 
@@ -28,6 +27,6 @@ def blink(led, times=1, delay=0.5):
 
 
 def read_light(ldr_sensor):
-    light = intOrNone(ldr_sensor.read())
-    light_percentage = intOrNone((light / 1024) * 100)
+    light = ldr_sensor.read()
+    light_percentage = (light / 1024) * 100
     return light_percentage
