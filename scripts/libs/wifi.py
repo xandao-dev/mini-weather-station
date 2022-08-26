@@ -36,5 +36,6 @@ def reconnect(ssid, password, station, led):
         blink(led, 5)
         station = connect(ssid, password)
         attempts += 1
+        sleep(WIFI_RECONNECT_INTERVAL)
 
     return station
