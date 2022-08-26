@@ -1,7 +1,6 @@
 from network import WLAN, STA_IF
 from time import sleep
-from machine import reset
-from libs.physical_modules import blink
+
 
 def connect(ssid, password):
     attempts = 0
@@ -24,11 +23,3 @@ def connect(ssid, password):
     print("Could not connect to network")
     station.active(False)
     return None
-
-
-def watchdog(station, led):
-    if not station.isconnected():
-        print("Wifi Disconnected, cleaning and restarting!")
-        station.active(False)
-        blink(led, 10)
-        reset()
