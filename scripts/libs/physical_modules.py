@@ -2,7 +2,7 @@ from dht import DHT11
 from time import sleep
 from machine import Pin, ADC, Signal
 from libs.constants import DHT_SENSOR_PIN, INTERNAL_LED_PIN, LDR_ADC
-
+from libs.utils import int_or_none
 
 def setup():
     internal_led = Signal(INTERNAL_LED_PIN, Pin.OUT, invert=True)
@@ -30,3 +30,18 @@ def read_light(ldr_sensor):
     light = ldr_sensor.read()
     light_percentage = (light / 1024) * 100
     return light_percentage
+
+
+def read_all_modules(physical_modules):
+    dht_sensor = physical_modules["dth_sensor"]
+    ldr_sensor = physical_modules["ldr_sensor"]
+    dht_sensor.measure()  # min 2 seconds between measurements
+    temperature = int_or_none(dht_sensor.temperature())
+    humidity = int_or_none(dht_sensor.humidity())
+    light = int_or_none(read_light(ldr_sensor))
+    reads = {
+        "temperature": temperature,
+        "humidity": humidity,
+        "light": light
+    }
+    return reads
