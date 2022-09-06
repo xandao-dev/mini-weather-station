@@ -7,11 +7,11 @@
     See the <a href="https://thingspeak.com/channels/1839564"><strong>thingspeak channel</strong></a> where the data is stored.
     <br />
     <br />
-    <a href="https://github.com/xandao6/mini-weather-station"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/xandao-dev/mini-weather-station"><strong>Explore the docs »</strong></a>
     <br />
-    <a href="https://github.com/xandao6/mini-weather-station/issue">Report Bug</a>
+    <a href="https://github.com/xandao-dev/mini-weather-station/issue">Report Bug</a>
     ·
-    <a href="https://github.com/xandao6/mini-weather-station/issues">Request Feature</a>
+    <a href="https://github.com/xandao-dev/mini-weather-station/issues">Request Feature</a>
   </p>
 </p>
 
@@ -38,7 +38,7 @@
 ## About The Project
 
 <div align="center">
-  <a href="https://github.com/xandao6/mini-weather-station">
+  <a href="https://github.com/xandao-dev/mini-weather-station">
     <img src="./assets/weather-station.jpeg" alt="weather station final">
     <img src="./assets/weather-station.png" alt="prototype">
   </a>
@@ -61,7 +61,7 @@
 
 ## Roadmap
 
-See the [open issues](https://github.com/xandao6/mini-weather-station/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/xandao-dev/mini-weather-station/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
@@ -87,6 +87,6 @@ Free software =)
 
 ## Contact
 
-Alexandre Calil - [@xandao6](https://www.linkedin.com/in/xandao6/) - alexandrecalilmf@gmail.com
+Alexandre Calil - [Linkedin](https://www.linkedin.com/in/xandao-dev/) - [alexandre@xandao.dev](mailto:alexandre@xandao.dev)
 
-Project Link: [https://github.com/xandao6/mini-weather-station](https://github.com/xandao6/mini-weather-station)
+Project Link: [https://github.com/xandao-dev/mini-weather-station](https://github.com/xandao-dev/mini-weather-station)
